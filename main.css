@@ -1,103 +1,103 @@
-/**{
-    background-color: #93f1f4;
-    font-family: Arial, sans-serif;
-    margin: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-}*/
+
+/* Import Google font - Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #06747a;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f6f7fb;
 }
 ::selection {
-    background: rgb(15, 82, 121); 
-    color: #fff;
+  color: #fff;
+  background-color: #33928b;
 }
 .container {
-    padding: 2rem 7rem;
-    background-color: #263c46;
-    background-image: linear-gradient(to bottom right, #5e7682, #0a6e87da);
-    border-radius: 14px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    align-items: center;
-    display: flex;
-    
+  padding: 5rem 9rem;
+  border-radius: 14px;
+  background: #dcf1ef;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
-.image_res {
+.result_images {
     display: flex;
     column-gap: 7rem;
-    justify-content: center;
 }
-.container.start .user_res { 
+
+.container.start .user_result {
     transform-origin: left;
-    animation: usershake 0.7s ease-in-out infinite;
+    animation: userShake 0.4s ease infinite;
 }
-@keyframes usershake {
+
+@keyframes userShake {
     50% {
         transform: rotate(10deg);
     }
 }
-.container.start .comp_res { 
-    transform-origin: left;
-    animation: compshake 0.7s ease-in-out infinite;
+
+.container.start .cpu_result {
+    transform-origin: right;
+    animation: cpuShake 0.4s ease infinite;
 }
-@keyframes compshake {
+
+@keyframes cpuShake {
     50% {
-        transform: rotate(10deg);
+        transform: rotate(-10deg);
     }
 }
-.image_res img {
-    width: 100px;
+.result_images img {
+  width: 100px;
 }
-.user_res img { /* Adjusted class name */
-    transform: rotate(90deg);
+.user_result img {
+  transform: rotate(90deg);
 }
-.comp_res img { /* Adjusted class name, and fixed rotateY typo */
-    transform: rotate(-90deg) rotateY(180deg);
+.cpu_result img {
+  transform: rotate(-90deg) rotateY(180deg);
 }
 .result {
-    text-align: center;
-    margin-top: 2rem;
+  text-align: center;
+  font-size: 2rem;
+  color: #33928b;
+  margin-top: 1.5rem;
 }
-.result h1 {
-    font-size: 3rem;
-    color: black;
+
+.option_image img {
+  width: 50px;
 }
-.options {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-    justify-content: space-between;
+.option_images {
+  display: flex;
+  align-items: center;
+  margin-top: 2.5rem;
+  justify-content: space-between;
 }
-.options img {
-    width: 50px;
+.container.start .option_images {
+  pointer-events: none;
 }
-.container.start .options { /* Adjusted selector */
-    pointer-events: none;
-    opacity: 0.5;
+.option_image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
 }
-.option {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    opacity: 0.5;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
+.option_image:hover {
+  opacity: 1;
 }
-.option:hover {
-    opacity: 1;
+.option_image.active {
+  opacity: 1;
 }
-.option.active {
-    opacity: 1;
+.option_image img {
+  pointer-events: none;
 }
-.option img {
-    pointer-events: none;
-}
-.option p {
-    font-size: 1.5rem;
-    color: black;
-    margin-top: 1rem;
-    pointer-events: none;
+.option_image p {
+  color: #33928b;
+  font-size: 2 rem;
+  margin-top: 1rem;
+  pointer-events: none;
 }

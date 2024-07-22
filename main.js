@@ -1,52 +1,66 @@
+// Get  to DOM elements
 const gameContainer = document.querySelector(".container"),
-    gameBoard = document.querySelector(".game-board"),
-    userRes= document.querySelector(".user_res img"),
-    compRes= document.querySelector(".comp_res img"),
-    result = document.querySelector(".result"),
-    optionImg = document.querySelectorAll(".option img");
+  userResult = document.querySelector(".user_result img"),
+  cpuResult = document.querySelector(".cpu_result img"),
+  result = document.querySelector(".result"),
+  optionImages = document.querySelectorAll(".option_image");
 
-optionImg.forEach((image, index) => {
-    image.parentElement.addEventListener("click", (e) => {
-        image.parentElement.classList.add("active");
+// Loop through each option image element
+optionImages.forEach((image, index) => {
+  image.addEventListener("click", (e) => {
+    image.classList.add("active");
 
-        userRes.src = compRes.src = "stone.png";
-        result.textContent = "Wait a second...";
+    userResult.src = cpuResult.src = "stone.png";
+    result.textContent = "Wait...";
 
-        optionImg.forEach((image2, index2) => {
-            if (index !== index2) {
-                image2.parentElement.classList.add("inactive");
-            }
-        });
-
-        gameContainer.classList.add("start");
-
-        let time = setTimeout(() => {
-            gameContainer.classList.remove("start");
-
-            let imageSrc = e.target.src;
-            userRes.src = imageSrc;
-
-            let compIndex = Math.floor(Math.random() * 3);
-            let compImg1 = ["stone.png", "paper.png", "scissors.jpg"];
-            compRes.src = compImg1[compIndex];
-
-            let compValue = ["R", "P", "S"][compIndex];
-            let userValue = ["R", "P", "S"][index];
-
-            let outcomes = {
-                "RR": "It's a tie!",
-                "PP": "It's a tie!",
-                "SS": "It's a tie!",
-                "RS": "You win!",
-                "PR": "You win!",
-                "SP": "You win!",
-                "RP": "You lose!",
-                "PS": "You lose!",
-                "SR": "You lose!"
-            };
-
-            let finalResult = userValue === compValue ? "Match Draw" : outcomes[userValue + compValue];
-            result.textContent = `${finalResult} Won!!`;
-        }, 2500);
+    // Loop through each option image again
+    optionImages.forEach((image2, index2) => {
+      // If the current index doesn't match the clicked index
+      // Remove the "active" class from the other option images
+      index !== index2 && image2.classList.remove("active");
     });
+
+    gameContainer.classList.add("start");
+
+    // Set a timeout to delay the result calculation
+    let time = setTimeout(() => {
+      gameContainer.classList.remove("start");
+
+      // Get the source of the clicked option image
+      let imageSrc = e.target.querySelector("img").src;
+      // Set the user image to the clicked option image
+      userResult.src = imageSrc;
+
+      // Generate a random number between 0 and 2
+      let randomNumber = Math.floor(Math.random() * 3);
+      // Create an array of CPU image options
+      let cpuImages = ["stone.png", "paper.png", "scissors.jpg"];
+      // Set the CPU image to a random option from the array
+      cpuResult.src = cpuImages[randomNumber];
+
+      // Assign a letter value to the CPU option (R for rock, P for paper, S for scissors)
+      let cpuValue = ["R", "P", "S"][randomNumber];
+      // Assign a letter value to the clicked option (based on index)
+      let userValue = ["R", "P", "S"][index];
+
+      // Create an object with all possible outcomes
+      let outcomes = {
+        RR: "Draw",
+        RP: "Cpu",
+        RS: "User",
+        PP: "Draw",
+        PR: "User",
+        PS: "Cpu",
+        SS: "Draw",
+        SR: "Cpu",
+        SP: "User",
+      };
+
+      // Look up the outcome value based on user and CPU options
+      let outComeValue = outcomes[userValue + cpuValue];
+
+      // Display the result
+      result.textContent = userValue === cpuValue ? "Match Draw" : `${outComeValue} Won!!`;
+    }, 2500);
+  });
 });
